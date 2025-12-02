@@ -1,0 +1,68 @@
+---
+import { formatDateShort } from '@/utils/formatDate';
+import { formatReadingTime, calculateReadingTime } from '@/utils/readingTime';
+import TagList from './TagList.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  slug: string;
+  tags: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
+  rawContent?: string;
+  draft?: boolean;
+}
+
+const { title, description, pubDate, slug, tags, image, rawContent, draft } = Astro.props;
+const readingTime = rawContent ? calculateReadingTime(rawContent) : 0;
+---
+
+<article class="group relative rounded-xl overflow-hidden border transition-all duration-300 hover:shadow-lg hover:-translate-y-1" style="background-color: var(--card-bg); border-color: var(--border-color);">
+  {draft && (
+    <div class="absolute top-3 right-3 z-10 px-2 py-1 rounded-md text-xs font-medium bg-amber-500/90 text-white">
+      Draft
+    </div>
+  )}
+  
+  {image && (
+    <div class="aspect-video overflow-hidden">
+      <img 
+        src={image.src} 
+        alt={image.alt}
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+    </div>
+  )}
+  
+  <div class="p-5">
+    <div class="flex items-center gap-3 text-sm mb-3" style="color: var(--text-tertiary);">
+      <time datetime={pubDate.toISOString()}>
+        {formatDateShort(pubDate)}
+      </time>
+      {readingTime > 0 && (
+        <>
+          <span>•</span>
+          <span>{formatReadingTime(readingTime)}</span>
+        </>
+      )}
+    </div>
+    
+    <h2 class="text-xl font-bold mb-2 transition-colors group-hover:text-[var(--gradient-start)]">
+      <a href={`/blog/${slug}`} class="after:absolute after:inset-0">
+        {title}
+      </a>
+    </h2>
+    
+    <p class="mb-4 line-clamp-2" style="color: var(--text-secondary);">
+      {description}
+    </p>
+    
+    <TagList tags={tags} size="sm" />
+  </div>
+</article>
+

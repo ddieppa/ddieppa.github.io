@@ -1,0 +1,192 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const experiences = [
+  {
+    title: 'Sr. Backend Developer / Consultant',
+    company: 'N&D Tek Solutions',
+    period: '2021 - Present',
+    description: 'Providing backend development and cloud consulting services for enterprise clients across diverse industries, designing and implementing scalable, maintainable systems using .NET, C#, and Azure.',
+    highlights: [
+      'CrashChampions: Built CAMS, a multi-layered backend system for automotive calibration workflows using ASP.NET Core, Entity Framework Core, and MediatR (CQRS)',
+      'Dynata: Designed distributed offer-management platform with .NET 8, Azure Functions, and Service Bus for large-scale async processing',
+      'QTC Management: Led modernization of VA healthcare systems, migrating SSRS reports and refactoring Windows Services',
+      'WEX: Enhanced compliance in financial systems, improving SSRS reports and resolving bottlenecks using DataDog',
+      'ServiceChannel: Improved Provider Search API performance using Elasticsearch, Redis, and comprehensive testing',
+      'Juniper by IMC: Rebuilt e-commerce API from .NET 3 to .NET 6, implementing Clean Architecture principles'
+    ]
+  },
+  {
+    title: 'Sr. Software Developer',
+    company: 'Bayview Asset Management',
+    period: 'Previous',
+    description: 'Contributed to development of a greenfield project automating Excel-based data extraction and analysis for business decisions.',
+    highlights: [
+      'Introduced GraphQL via HotChocolate library for flexible data retrieval',
+      'Implemented real-time notifications using SignalR',
+      'Applied Clean Architecture principles with .NET and Entity Framework',
+      'Supported frontend development with Nuxt.js (Vue.js)'
+    ]
+  },
+  {
+    title: 'Sr. Software Engineer Consultant',
+    company: 'Norwegian Cruise Line',
+    period: 'Previous',
+    description: 'Contributed to modernization and integration of enterprise web systems supporting guest and operational platforms.',
+    highlights: [
+      'Developed Docker Compose configuration unifying multiple microservices',
+      'Worked on legacy .NET 4.8 WebForms reservation system migration',
+      'Used HAProxy for seamless traffic routing between legacy and new services',
+      'Built Deck Plan Explorer for Regent Cruise Line with Vue.js 2'
+    ]
+  }
+];
+
+const skills = {
+  'Languages & Frameworks': ['C#', '.NET Core', 'ASP.NET', 'Entity Framework Core', 'LINQ', 'GraphQL'],
+  'Cloud & Infrastructure': ['Microsoft Azure', 'Azure Functions', 'Durable Functions', 'Service Bus', 'Blob Storage', 'Docker', 'Azure DevOps CI/CD'],
+  'Databases & Caching': ['SQL Server', 'Dapper', 'Redis'],
+  'Libraries & Tools': ['MediatR (CQRS)', 'FluentValidation', 'Swagger', 'xUnit', 'Moq', 'AutoFixture', 'FluentAssertions'],
+  'Testing & Quality': ['Unit Testing', 'Integration Testing', 'Health Checks', 'Application Insights', 'Veracode'],
+  'Version Control': ['Git', 'GitHub Enterprise', 'Azure Repos', 'JIRA', 'Agile']
+};
+
+const softSkills = [
+  'Problem-solving and analytical thinking',
+  'Cross-functional collaboration and teamwork',
+  'Effective communication',
+  'Adaptability to new technologies',
+  'Mentorship and knowledge sharing'
+];
+---
+
+<BaseLayout title="Resume">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <header class="mb-12 text-center">
+      <h1 class="text-4xl font-bold mb-2">Daniel Dieppa</h1>
+      <p class="text-xl mb-4" style="color: var(--gradient-start);">Senior Software Developer</p>
+      <p class="max-w-2xl mx-auto" style="color: var(--text-secondary);">
+        Experienced Senior Backend Developer specializing in .NET Core / ASP.NET, C#, and Azure Cloud Services. 
+        Skilled in building scalable APIs, implementing Clean Architecture and CQRS patterns, and modernizing legacy systems.
+      </p>
+      <div class="mt-6 flex justify-center gap-3">
+        <a 
+          href="/contact" 
+          class="px-6 py-2.5 rounded-lg font-medium text-white transition-transform hover:scale-105"
+          style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));"
+        >
+          Contact Me
+        </a>
+        <a 
+          href="/20251017 Daniel Dieppa Resume.pdf" 
+          target="_blank"
+          class="px-6 py-2.5 rounded-lg font-medium border transition-colors hover:bg-[var(--bg-tertiary)]"
+          style="border-color: var(--border-color);"
+        >
+          Download PDF
+        </a>
+      </div>
+    </header>
+    
+    <!-- Experience -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
+        Work Experience
+      </h2>
+      <div class="space-y-8">
+        {experiences.map((exp, index) => (
+          <div class="relative pl-6 border-l-2" style="border-color: var(--gradient-start);">
+            <div class="absolute -left-2 top-0 w-4 h-4 rounded-full" style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));"></div>
+            <div class="mb-1">
+              <h3 class="text-xl font-bold">{exp.title}</h3>
+              <div class="flex items-center gap-2 text-sm" style="color: var(--text-secondary);">
+                <span class="font-medium" style="color: var(--gradient-start);">{exp.company}</span>
+                <span>•</span>
+                <span>{exp.period}</span>
+              </div>
+            </div>
+            <p class="mb-3" style="color: var(--text-secondary);">{exp.description}</p>
+            <ul class="space-y-1.5">
+              {exp.highlights.map(highlight => (
+                <li class="flex items-start gap-2 text-sm" style="color: var(--text-secondary);">
+                  <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color: var(--gradient-start);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+    
+    <!-- Skills -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
+        Technical Skills
+      </h2>
+      <div class="space-y-6">
+        {Object.entries(skills).map(([category, items]) => (
+          <div>
+            <h3 class="font-semibold mb-2" style="color: var(--text-secondary);">{category}</h3>
+            <div class="flex flex-wrap gap-2">
+              {items.map(skill => (
+                <span class="px-3 py-1 rounded-lg text-sm" style="background-color: var(--bg-tertiary); color: var(--text-secondary);">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+    
+    <!-- Soft Skills -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
+        Soft Skills
+      </h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {softSkills.map(skill => (
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: var(--bg-secondary);">
+            <svg class="w-5 h-5 flex-shrink-0" style="color: var(--gradient-start);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span style="color: var(--text-secondary);">{skill}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+    
+    <!-- Education -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
+        Education
+      </h2>
+      <div class="p-5 rounded-xl border" style="background-color: var(--card-bg); border-color: var(--border-color);">
+        <h3 class="text-lg font-bold">Bachelor's Degree in Computer Science</h3>
+        <p style="color: var(--gradient-start);">University of Havana</p>
+      </div>
+    </section>
+    
+    <!-- Languages -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
+        Languages
+      </h2>
+      <div class="flex gap-4">
+        <div class="flex-1 p-4 rounded-xl text-center" style="background-color: var(--bg-secondary);">
+          <p class="font-semibold">English</p>
+          <p class="text-sm" style="color: var(--text-tertiary);">Fluent</p>
+        </div>
+        <div class="flex-1 p-4 rounded-xl text-center" style="background-color: var(--bg-secondary);">
+          <p class="font-semibold">Spanish</p>
+          <p class="text-sm" style="color: var(--text-tertiary);">Fluent</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+

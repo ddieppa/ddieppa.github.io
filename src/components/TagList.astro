@@ -1,0 +1,42 @@
+---
+interface Props {
+  tags: string[];
+  size?: 'sm' | 'md';
+  showLinks?: boolean;
+}
+
+const { tags, size = 'md', showLinks = true } = Astro.props;
+
+const sizeClasses = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-3 py-1 text-sm'
+};
+---
+
+<div class="flex flex-wrap gap-2">
+  {tags.map(tag => (
+    showLinks ? (
+      <a 
+        href={`/tags/${tag.toLowerCase()}`}
+        class:list={[
+          'rounded-full font-medium transition-all hover:scale-105',
+          sizeClasses[size]
+        ]}
+        style="background-color: var(--bg-tertiary); color: var(--text-secondary);"
+      >
+        #{tag}
+      </a>
+    ) : (
+      <span 
+        class:list={[
+          'rounded-full font-medium',
+          sizeClasses[size]
+        ]}
+        style="background-color: var(--bg-tertiary); color: var(--text-secondary);"
+      >
+        #{tag}
+      </span>
+    )
+  ))}
+</div>
+

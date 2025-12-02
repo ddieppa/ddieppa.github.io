@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const posts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const tagCounts = posts.reduce((acc, post) => {
+  post.data.tags.forEach(tag => {
+    acc[tag] = (acc[tag] || 0) + 1;
+  });
+  return acc;
+}, {} as Record<string, number>);
+
+const sortedTags = Object.entries(tagCounts)
+  .sort(([, a], [, b]) => b - a)
+  .map(([tag, count]) => ({ tag, count }));
+---
+
+<BaseLayout title="Tags">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <h1 class="text-4xl font-bold mb-4">All Tags</h1>
+      <p style="color: var(--text-secondary);">
+        Browse all {sortedTags.length} tags used across {posts.length} posts
+      </p>
+    </header>
+    
+    <div class="flex flex-wrap gap-3">
+      {sortedTags.map(({ tag, count }) => (
+        <a 
+          href={`/tags/${tag.toLowerCase()}`}
+          class="group px-4 py-2 rounded-xl border transition-all hover:scale-105 hover:shadow-md"
+          style="background-color: var(--card-bg); border-color: var(--border-color);"
+        >
+          <span class="font-medium group-hover:text-[var(--gradient-start)] transition-colors">#{tag}</span>
+          <span class="ml-2 text-sm px-2 py-0.5 rounded-full" style="background-color: var(--bg-tertiary); color: var(--text-tertiary);">
+            {count}
+          </span>
+        </a>
+      ))}
+    </div>
+    
+    {sortedTags.length === 0 && (
+      <div class="text-center py-16 rounded-xl" style="background-color: var(--bg-secondary);">
+        <p style="color: var(--text-secondary);">No tags yet. Start writing posts with tags!</p>
+      </div>
+    )}
+  </div>
+</BaseLayout>
+

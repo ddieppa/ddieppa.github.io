@@ -1,0 +1,161 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '@/components/TableOfContents.astro';
+import TagList from '@/components/TagList.astro';
+import { formatDate } from '@/utils/formatDate';
+import { formatReadingTime, calculateReadingTime } from '@/utils/readingTime';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author: string;
+  tags: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
+  headings: { depth: number; slug: string; text: string }[];
+  rawContent: string;
+}
+
+const { 
+  title, 
+  description, 
+  pubDate, 
+  updatedDate, 
+  author, 
+  tags, 
+  image,
+  headings,
+  rawContent
+} = Astro.props;
+
+const readingTime = calculateReadingTime(rawContent);
+---
+
+<BaseLayout title={title} description={description} image={image?.src}>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Article Header -->
+    <header class="mb-10">
+      <div class="flex items-center gap-3 text-sm mb-4" style="color: var(--text-secondary);">
+        <time datetime={pubDate.toISOString()}>
+          {formatDate(pubDate)}
+        </time>
+        <span>•</span>
+        <span>{formatReadingTime(readingTime)}</span>
+        {updatedDate && (
+          <>
+            <span>•</span>
+            <span>Updated {formatDate(updatedDate)}</span>
+          </>
+        )}
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+        {title}
+      </h1>
+      
+      <p class="text-xl mb-6" style="color: var(--text-secondary);">
+        {description}
+      </p>
+      
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--gradient-start)] to-[var(--gradient-end)] flex items-center justify-center text-white font-semibold">
+            {author.charAt(0)}
+          </div>
+          <span class="font-medium">{author}</span>
+        </div>
+        
+        <TagList tags={tags} />
+      </div>
+    </header>
+    
+    {image && (
+      <img 
+        src={image.src} 
+        alt={image.alt}
+        class="w-full rounded-xl mb-10 shadow-lg"
+      />
+    )}
+    
+    <!-- Content Grid -->
+    <div class="lg:grid lg:grid-cols-[1fr_200px] lg:gap-10">
+      <!-- Main Content -->
+      <div class="prose prose-lg max-w-none" style="color: var(--text-primary);">
+        <slot />
+      </div>
+      
+      <!-- Sidebar with TOC -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .prose h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .prose h3 {
+    font-size: 1.375rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .prose p {
+    margin-bottom: 1.25rem;
+  }
+  
+  .prose ul, .prose ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+  
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose pre {
+    background-color: var(--code-bg);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+  
+  .prose blockquote {
+    border-left: 4px solid var(--gradient-start);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+  
+  .prose img {
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .prose a {
+    color: var(--gradient-start);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  
+  .prose a:hover {
+    color: var(--gradient-end);
+  }
+</style>
+

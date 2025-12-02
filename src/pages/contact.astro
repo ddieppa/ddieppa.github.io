@@ -1,0 +1,164 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+---
+
+<BaseLayout title="Contact">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-12 text-center">
+      <h1 class="text-4xl font-bold mb-4">Get in Touch</h1>
+      <p class="text-xl max-w-2xl mx-auto" style="color: var(--text-secondary);">
+        Have a question, want to collaborate, or just want to say hello? 
+        I'd love to hear from you!
+      </p>
+    </header>
+    
+    <div class="grid gap-8 lg:grid-cols-2">
+      <!-- Contact Info -->
+      <div class="space-y-6">
+        <div class="p-6 rounded-xl border" style="background-color: var(--card-bg); border-color: var(--border-color);">
+          <h2 class="text-xl font-bold mb-4">Let's Connect</h2>
+          <p class="mb-6" style="color: var(--text-secondary);">
+            I'm always open to discussing new projects, creative ideas, or opportunities 
+            to be part of your vision. Feel free to reach out through any of these channels.
+          </p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: var(--bg-tertiary);">
+                <svg class="w-5 h-5" style="color: var(--gradient-start);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm" style="color: var(--text-tertiary);">Email</p>
+                <a href="mailto:contact@danieldieppa.dev" class="font-medium hover:text-[var(--gradient-start)]">
+                  contact@danieldieppa.dev
+                </a>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: var(--bg-tertiary);">
+                <svg class="w-5 h-5" style="color: var(--gradient-start);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm" style="color: var(--text-tertiary);">Location</p>
+                <p class="font-medium">United States (Remote)</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: var(--bg-tertiary);">
+                <svg class="w-5 h-5" style="color: var(--gradient-start);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm" style="color: var(--text-tertiary);">Availability</p>
+                <p class="font-medium">Open for consulting & projects</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t" style="border-color: var(--border-color);">
+            <p class="text-sm mb-3" style="color: var(--text-tertiary);">Connect on social media</p>
+            <SocialLinks />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact Form -->
+      <div class="p-6 rounded-xl border" style="background-color: var(--card-bg); border-color: var(--border-color);">
+        <h2 class="text-xl font-bold mb-4">Send a Message</h2>
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label for="name" class="block text-sm font-medium mb-1.5">Name</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name"
+              required
+              class="w-full px-4 py-2.5 rounded-lg border outline-none transition-colors focus:border-[var(--gradient-start)]"
+              style="background-color: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+              placeholder="Your name"
+            />
+          </div>
+          
+          <div>
+            <label for="email" class="block text-sm font-medium mb-1.5">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              required
+              class="w-full px-4 py-2.5 rounded-lg border outline-none transition-colors focus:border-[var(--gradient-start)]"
+              style="background-color: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+              placeholder="your@email.com"
+            />
+          </div>
+          
+          <div>
+            <label for="subject" class="block text-sm font-medium mb-1.5">Subject</label>
+            <input 
+              type="text" 
+              id="subject" 
+              name="subject"
+              required
+              class="w-full px-4 py-2.5 rounded-lg border outline-none transition-colors focus:border-[var(--gradient-start)]"
+              style="background-color: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+              placeholder="What's this about?"
+            />
+          </div>
+          
+          <div>
+            <label for="message" class="block text-sm font-medium mb-1.5">Message</label>
+            <textarea 
+              id="message" 
+              name="message"
+              required
+              rows="5"
+              class="w-full px-4 py-2.5 rounded-lg border outline-none transition-colors focus:border-[var(--gradient-start)] resize-none"
+              style="background-color: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+              placeholder="Your message..."
+            ></textarea>
+          </div>
+          
+          <button 
+            type="submit"
+            class="w-full px-6 py-3 rounded-lg font-medium text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));"
+          >
+            Send Message
+          </button>
+        </form>
+        
+        <p class="mt-4 text-sm text-center" style="color: var(--text-tertiary);">
+          I typically respond within 24-48 hours.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form as HTMLFormElement);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+    
+    const mailtoLink = `mailto:contact@danieldieppa.dev?subject=${encodeURIComponent(subject as string)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    
+    window.location.href = mailtoLink;
+  });
+</script>
+
