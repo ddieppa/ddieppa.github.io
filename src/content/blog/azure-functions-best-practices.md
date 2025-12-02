@@ -138,3 +138,5 @@ public async Task Run(
 
 These patterns have saved me countless hours of debugging and helped build more reliable systems. What Azure Functions patterns have worked well for you?
 
+
+

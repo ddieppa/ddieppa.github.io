@@ -168,3 +168,5 @@ MediatR + CQRS has become my default architecture for complex .NET applications.
 
 In my next post, I'll cover how to add Event Sourcing on top of CQRS. Stay tuned!
 
+
+

@@ -36,6 +36,13 @@ const readingTime = calculateReadingTime(rawContent);
 ---
 
 <BaseLayout title={title} description={description} image={image?.src}>
+  <!-- Scroll Progress Bar -->
+  <div 
+    id="scroll-progress" 
+    class="fixed top-0 left-0 h-0.5 z-50 transition-all duration-150"
+    style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); width: 0%;"
+  ></div>
+  
   <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Article Header -->
     <header class="mb-10">
@@ -158,4 +165,19 @@ const readingTime = calculateReadingTime(rawContent);
     color: var(--gradient-end);
   }
 </style>
+
+<script>
+  const scrollProgress = document.getElementById('scroll-progress');
+  
+  if (scrollProgress) {
+    const updateScrollProgress = () => {
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      scrollProgress.style.width = `${scrolled}%`;
+    };
+    
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+  }
+</script>
 

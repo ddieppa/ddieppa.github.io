@@ -1,0 +1,81 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+}
+
+const { name, title, description } = Astro.props;
+---
+
+<section class="mb-20 py-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-12 items-center lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+      <!-- Text content -->
+      <div class="text-center lg:text-left space-y-6">
+        <p class="text-sm font-semibold uppercase" style="letter-spacing: 0.35em; color: var(--text-tertiary);">
+          Personal blog
+        </p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+          Hi, I'm <span class="gradient-text">{name}</span>
+        </h1>
+        <p class="text-xl font-medium" style="color: var(--text-primary);">
+          {title}
+        </p>
+        <p class="text-lg leading-relaxed max-w-xl mx-auto lg:mx-0" style="color: var(--text-secondary);">
+          {description}
+        </p>
+      </div>
+
+      <!-- Abstract visual -->
+      <div class="relative h-64 sm:h-80">
+        <div class="absolute inset-0 rounded-[2.5rem] border border-white/10 dark:border-white/5 bg-gradient-to-br from-[var(--bg-secondary)]/60 to-transparent backdrop-blur-3xl shadow-[0_25px_80px_rgba(8,47,73,0.15)] dark:shadow-[0_25px_80px_rgba(8,47,73,0.45)] overflow-hidden">
+          <div class="absolute inset-0 opacity-70" style="background: radial-gradient(circle at 20% 20%, rgba(14,165,233,0.35), transparent 55%);"></div>
+          <div class="absolute inset-0 opacity-60" style="background: radial-gradient(circle at 80% 30%, rgba(139,92,246,0.3), transparent 45%);"></div>
+          <div class="absolute -left-16 top-1/4 h-52 w-52 rounded-full blur-3xl opacity-30" style="background: var(--gradient-start); animation: pulse 4s infinite;"></div>
+          <div class="absolute -right-10 bottom-0 h-48 w-48 rounded-full blur-3xl opacity-20" style="background: var(--gradient-end); animation: pulse 5s infinite;"></div>
+
+          <!-- Thin rotating rings -->
+          <div class="absolute inset-8 flex items-center justify-center">
+            <div class="absolute h-full w-full rounded-[2.5rem] border border-white/10" style="animation: spin 30s linear infinite;"></div>
+            <div class="absolute h-[70%] w-[70%] rounded-[2rem] border border-white/15" style="animation: spinReverse 25s linear infinite;"></div>
+            <div class="absolute h-[40%] w-[40%] rounded-2xl border border-white/20"></div>
+            <div class="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-[var(--gradient-start)] to-[var(--gradient-end)] shadow-[0_20px_45px_rgba(14,165,233,0.35)]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spinReverse {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.45;
+      transform: scale(1.05);
+    }
+  }
+</style>
