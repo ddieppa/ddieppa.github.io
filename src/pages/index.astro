@@ -1,109 +1,57 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PostCard from '@/components/PostCard.astro';
-import Hero from '@/components/Hero.astro';
+import Container from '@/components/Container.astro';
+import Card from '@/components/Card.astro';
+import CardTitle from '@/components/CardTitle.astro';
+import CardDescription from '@/components/CardDescription.astro';
+import CardEyebrow from '@/components/CardEyebrow.astro';
+import CardCta from '@/components/CardCta.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { formatDate } from '@/utils/formatDate';
 
 const allPosts = await getCollection('blog', ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const featuredPost = posts[0];
-const regularPosts = posts.slice(1);
-
-const allTags = [...new Set(posts.flatMap(post => post.data.tags))].sort();
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4);
 ---
 
-<BaseLayout title="Blog">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Hero Section -->
-    <Hero 
-      name="Daniel Dieppa"
-      title="Senior Software Developer"
-      description="Sharing my journey with .NET, Azure, Clean Architecture, and everything backend development."
-    />
+<BaseLayout title="Home">
+  <Container className="mt-9">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        Senior Software Developer, .NET enthusiast, and Azure architect.
+      </h1>
+      <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+        I'm Daniel, a Senior Backend Developer specializing in .NET Core, C#, and Azure Cloud Services. 
+        I focus on building scalable, maintainable systems using Clean Architecture, CQRS patterns, 
+        and modernizing legacy applications.
+      </p>
+      <div class="mt-6 flex gap-6">
+        <SocialLinks />
+      </div>
+    </div>
+  </Container>
 
-    <!-- Tags Filter -->
-    {allTags.length > 0 && (
-      <section class="mb-10">
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="text-sm font-medium" style="color: var(--text-tertiary);">Browse by tag:</span>
-          {allTags.slice(0, 10).map(tag => (
-            <a 
-              href={`/tags/${tag.toLowerCase()}`}
-              class="px-3 py-1 rounded-full text-sm font-medium transition-all hover:scale-105"
-              style="background-color: var(--bg-tertiary); color: var(--text-secondary);"
-            >
-              #{tag}
-            </a>
-          ))}
-          {allTags.length > 10 && (
-            <a 
-              href="/tags"
-              class="px-3 py-1 rounded-full text-sm font-medium transition-colors"
-              style="color: var(--gradient-start);"
-            >
-              View all →
-            </a>
-          )}
-        </div>
-      </section>
-    )}
-
-    <!-- Featured Post -->
-    {posts.length > 0 && featuredPost && (
-      <section class="mb-16">
-        <div class="flex items-center gap-2 mb-6">
-          <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-tertiary);">Featured</span>
-          <div class="flex-1 h-px" style="background-color: var(--border-color);"></div>
-        </div>
-        <PostCard 
-          title={featuredPost.data.title}
-          description={featuredPost.data.description}
-          pubDate={featuredPost.data.pubDate}
-          slug={featuredPost.id}
-          tags={featuredPost.data.tags}
-          image={featuredPost.data.image}
-          draft={featuredPost.data.draft}
-          featured={true}
-          rawContent={featuredPost.body}
-        />
-      </section>
-    )}
-
-    <!-- Posts Grid -->
-    {regularPosts.length > 0 && (
-      <section>
-        <div class="flex items-center gap-2 mb-6">
-          <h2 class="text-2xl font-bold">Latest Posts</h2>
-          <div class="flex-1 h-px" style="background-color: var(--border-color);"></div>
-        </div>
-        
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {regularPosts.map(post => (
-            <PostCard 
-              title={post.data.title}
-              description={post.data.description}
-              pubDate={post.data.pubDate}
-              slug={post.id}
-              tags={post.data.tags}
-              image={post.data.image}
-              draft={post.data.draft}
-              rawContent={post.body}
-            />
-          ))}
-        </div>
-      </section>
-    )}
-
-    {posts.length === 0 && (
-      <section>
-        <div class="text-center py-16 rounded-xl border" style="background-color: var(--bg-secondary); border-color: var(--border-color);">
-          <p class="text-lg mb-2" style="color: var(--text-secondary);">No posts yet</p>
-          <p class="text-sm" style="color: var(--text-tertiary);">Check back soon for new content!</p>
-        </div>
-      </section>
-    )}
-  </div>
+  <Container className="mt-24 md:mt-28">
+    <div class="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
+      <div class="flex flex-col gap-16">
+        {posts.map((post) => (
+          <Card as="article">
+            <CardEyebrow as="time" dateTime={post.data.pubDate.toISOString()} decorate>
+              {formatDate(post.data.pubDate)}
+            </CardEyebrow>
+            <CardTitle href={`/blog/${post.id}`}>
+              {post.data.title}
+            </CardTitle>
+            <CardDescription>
+              {post.data.description}
+            </CardDescription>
+            <CardCta>Read article</CardCta>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </Container>
 </BaseLayout>

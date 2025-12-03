@@ -1,164 +1,45 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import './prism.css' layer(components);
+
+@plugin '@tailwindcss/typography';
+@config '../../typography.ts';
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Color palette - Cool tech blues */
-  --color-primary-50: #f3f7ff;
-  --color-primary-100: #e1eaff;
-  --color-primary-200: #c3d6ff;
-  --color-primary-300: #9fbeff;
-  --color-primary-400: #6b9afc;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e3a8a;
-  --color-primary-900: #172554;
-  --color-primary-950: #0b1225;
-
-  --color-accent-400: #5eead4;
-  --color-accent-500: #14b8a6;
-  --color-accent-600: #0d9488;
-
-  /* Fonts */
-  --font-sans: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.75rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: 2rem;
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 3.5rem;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 4.5rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 6rem;
+  --text-8xl--line-height: 1;
+  --text-9xl: 8rem;
+  --text-9xl--line-height: 1;
 }
 
-/* Theme CSS variables */
-:root {
-  --bg-primary: #f5f7fb;
-  --bg-secondary: #eef2fb;
-  --bg-tertiary: #e1e8f6;
-  --text-primary: #0a1b2e;
-  --text-secondary: #455168;
-  --text-tertiary: #7b889f;
-  --border-color: rgba(133, 161, 203, 0.4);
-  --card-bg: #ffffff;
-  --card-hover: #eef3ff;
-  --code-bg: #e3ecff;
-  --gradient-start: #3b82f6;
-  --gradient-end: #06b6d4;
-}
-
-.dark {
-  --bg-primary: #050e1f;
-  --bg-secondary: #0e1a2b;
-  --bg-tertiary: #15263d;
-  --text-primary: #e4edff;
-  --text-secondary: #b8c9e6;
-  --text-tertiary: #7f96c2;
-  --border-color: rgba(72, 109, 155, 0.5);
-  --card-bg: #0e1a2b;
-  --card-hover: #1a3050;
-  --code-bg: #0f223d;
-  --gradient-start: #60a5fa;
-  --gradient-end: #22d3ee;
-}
-
-/* Base styles */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
-  line-height: 1.75;
-  letter-spacing: -0.01em;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-h1 {
-  letter-spacing: -0.03em;
-}
-
-/* Code styling */
-code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  background-color: var(--code-bg);
-  padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
-}
-
-pre {
-  font-family: var(--font-mono);
-  border-radius: 0.5rem;
-  overflow-x: auto;
-}
-
-pre code {
-  background: transparent;
-  padding: 0;
-}
-
-/* Links */
-a {
-  color: var(--gradient-start);
-  text-decoration: none;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-a:hover {
-  color: var(--gradient-end);
-  opacity: 0.9;
-}
-
-/* Selection */
-::selection {
-  background-color: var(--gradient-start);
-  color: white;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--text-tertiary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
-}
-
-/* Utility classes */
-.gradient-text {
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-border {
-  position: relative;
-}
-
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  pointer-events: none;
+  @apply h-full antialiased;
 }
 

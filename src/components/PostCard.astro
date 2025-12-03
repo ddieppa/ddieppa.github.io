@@ -2,6 +2,7 @@
 import { formatDateShort } from '@/utils/formatDate';
 import { formatReadingTime, calculateReadingTime } from '@/utils/readingTime';
 import TagList from './TagList.astro';
+import { Fragment } from 'astro/jsx-runtime';
 
 interface Props {
   title: string;
@@ -20,6 +21,47 @@ interface Props {
 
 const { title, description, pubDate, slug, tags, image, rawContent, draft, featured = false } = Astro.props;
 const readingTime = rawContent ? calculateReadingTime(rawContent) : 0;
+
+// #region agent log
+fetch('http://127.0.0.1:7242/ingest/3d1e002a-eba7-400f-906b-14aee1f56652', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    sessionId: 'debug-session',
+    runId: 'pre-fix',
+    hypothesisId: 'H1',
+    location: 'src/components/PostCard.astro:frontmatter',
+    message: 'PostCard props snapshot',
+    data: {
+      slug,
+      featured,
+      hasImage: Boolean(image),
+      tagsCount: tags?.length ?? 0
+    },
+    timestamp: Date.now()
+  })
+}).catch(() => {});
+// #endregion
+
+// #region agent log
+fetch('http://127.0.0.1:7242/ingest/3d1e002a-eba7-400f-906b-14aee1f56652', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    sessionId: 'debug-session',
+    runId: 'pre-fix',
+    hypothesisId: 'H2',
+    location: 'src/components/PostCard.astro:readingTime',
+    message: 'Reading time fragment conditions',
+    data: {
+      readingTime,
+      willRenderFragment: readingTime > 0,
+      rawContentPresent: Boolean(rawContent)
+    },
+    timestamp: Date.now()
+  })
+}).catch(() => {});
+// #endregion
 ---
 
 {featured ? (
@@ -47,11 +89,32 @@ const readingTime = rawContent ? calculateReadingTime(rawContent) : 0;
           <time datetime={pubDate.toISOString()}>
             {formatDateShort(pubDate)}
           </time>
+          <!-- #region agent log -->
+          {readingTime > 0 && (() => {
+            fetch('http://127.0.0.1:7242/ingest/3d1e002a-eba7-400f-906b-14aee1f56652', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                sessionId: 'debug-session',
+                runId: 'pre-fix',
+                hypothesisId: 'H3',
+                location: 'src/components/PostCard.astro:featured-readingTime',
+                message: 'Featured branch will render reading time fragment',
+                data: {
+                  readingTime,
+                  tagsCount: tags?.length ?? 0
+                },
+                timestamp: Date.now()
+              })
+            }).catch(() => {});
+            return null;
+          })()}
+          <!-- #endregion -->
           {readingTime > 0 && (
-            <>
+            <Fragment>
               <span>•</span>
               <span>{formatReadingTime(readingTime)}</span>
-            </>
+            </Fragment>
           )}
         </div>
         
@@ -105,11 +168,32 @@ const readingTime = rawContent ? calculateReadingTime(rawContent) : 0;
         <time datetime={pubDate.toISOString()}>
           {formatDateShort(pubDate)}
         </time>
+        <!-- #region agent log -->
+        {readingTime > 0 && (() => {
+          fetch('http://127.0.0.1:7242/ingest/3d1e002a-eba7-400f-906b-14aee1f56652', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sessionId: 'debug-session',
+              runId: 'pre-fix',
+              hypothesisId: 'H4',
+              location: 'src/components/PostCard.astro:default-readingTime',
+              message: 'Default branch will render reading time fragment',
+              data: {
+                readingTime,
+                tagsCount: tags?.length ?? 0
+              },
+              timestamp: Date.now()
+            })
+          }).catch(() => {});
+          return null;
+        })()}
+        <!-- #endregion -->
         {readingTime > 0 && (
-          <>
+          <Fragment>
             <span>•</span>
             <span>{formatReadingTime(readingTime)}</span>
-          </>
+          </Fragment>
         )}
       </div>
       

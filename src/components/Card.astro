@@ -1,0 +1,12 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  className?: string;
+}
+
+const { as: Tag = 'div', className = '' } = Astro.props;
+---
+
+<Tag class={`group relative flex flex-col items-start ${className}`}>
+  <slot />
+</Tag>

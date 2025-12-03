@@ -1,82 +1,34 @@
 ---
-import SocialLinks from './SocialLinks.astro';
+import Container from './Container.astro';
 
 const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/uses', label: 'Uses' },
+];
 ---
 
-<footer class="border-t mt-auto" style="border-color: var(--border-color); background-color: var(--bg-secondary);">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Brand -->
-      <div>
-        <a href="/" class="flex items-center gap-2 font-bold text-xl mb-4">
-          <div id="footer-avatar" class="relative w-8 h-8 rounded-lg overflow-hidden ring-2 ring-[var(--bg-tertiary)] bg-gradient-to-br from-[var(--gradient-start)] to-[var(--gradient-end)] flex items-center justify-center">
-            <img 
-              id="footer-profile-img"
-              src="/profile.jpg" 
-              alt="Daniel Dieppa"
-              class="w-full h-full object-cover hidden"
-            />
-            <span id="footer-fallback" class="text-white text-xs font-bold">DD</span>
-          </div>
-          <span class="gradient-text">Daniel Dieppa</span>
-        </a>
-        <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
-          Senior Software Developer sharing experiences with .NET, Azure, Clean Architecture, and backend development.
+<footer class="mt-32 flex-none">
+  <Container>
+    <div class="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40">
+      <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+          {navLinks.map(link => (
+            <a 
+              href={link.href}
+              class="transition hover:text-teal-500 dark:hover:text-teal-400"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+        <p class="text-sm text-zinc-400 dark:text-zinc-500">
+          &copy; {currentYear} Daniel Dieppa. All rights reserved.
         </p>
       </div>
-      
-      <!-- Quick Links -->
-      <div>
-        <h3 class="font-semibold mb-4">Quick Links</h3>
-        <nav class="flex flex-col gap-2">
-          <a href="/" class="text-sm transition-colors hover:text-[var(--gradient-start)]" style="color: var(--text-secondary);">Blog</a>
-          <a href="/about" class="text-sm transition-colors hover:text-[var(--gradient-start)]" style="color: var(--text-secondary);">About</a>
-          <a href="/resume" class="text-sm transition-colors hover:text-[var(--gradient-start)]" style="color: var(--text-secondary);">Resume</a>
-          <a href="/contact" class="text-sm transition-colors hover:text-[var(--gradient-start)]" style="color: var(--text-secondary);">Contact</a>
-          <a href="/tags" class="text-sm transition-colors hover:text-[var(--gradient-start)]" style="color: var(--text-secondary);">Tags</a>
-        </nav>
-      </div>
-      
-      <!-- Connect -->
-      <div>
-        <h3 class="font-semibold mb-4">Connect</h3>
-        <SocialLinks />
-      </div>
     </div>
-    
-    <div class="border-t mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color: var(--border-color);">
-      <p class="text-sm" style="color: var(--text-tertiary);">
-        &copy; {currentYear} Daniel Dieppa. All rights reserved.
-      </p>
-      <p class="text-sm" style="color: var(--text-tertiary);">
-        Built with <a href="https://astro.build" target="_blank" rel="noopener" class="hover:text-[var(--gradient-start)]">Astro</a> & <a href="https://tailwindcss.com" target="_blank" rel="noopener" class="hover:text-[var(--gradient-start)]">Tailwind CSS</a>
-      </p>
-    </div>
-  </div>
+  </Container>
 </footer>
-
-<script>
-  // Handle footer profile image fallback
-  const footerImg = document.getElementById('footer-profile-img') as HTMLImageElement | null;
-  const footerFallback = document.getElementById('footer-fallback');
-  
-  if (footerImg && footerFallback) {
-    footerImg.addEventListener('load', () => {
-      footerImg.classList.remove('hidden');
-      footerFallback.classList.add('hidden');
-    });
-    
-    footerImg.addEventListener('error', () => {
-      footerImg.classList.add('hidden');
-      footerFallback.classList.remove('hidden');
-    });
-    
-    // Check if image loads on page load
-    if (footerImg.complete && footerImg.naturalHeight !== 0) {
-      footerImg.classList.remove('hidden');
-      footerFallback.classList.add('hidden');
-    }
-  }
-</script>
-

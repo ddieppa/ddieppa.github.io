@@ -1,0 +1,133 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SimpleLayout from '@/components/SimpleLayout.astro';
+import Section from '@/components/Section.astro';
+import Card from '@/components/Card.astro';
+import CardTitle from '@/components/CardTitle.astro';
+import CardDescription from '@/components/CardDescription.astro';
+---
+
+<BaseLayout title="Uses">
+  <SimpleLayout
+    title="Software I use, gadgets I love, and other things I recommend."
+    intro="I get asked a lot about the things I use to build software, stay productive, or buy to fool myself into thinking I'm being productive when I'm really just procrastinating. Here's a big list of all of my favorite stuff."
+  >
+    <div class="mt-16 sm:mt-20 space-y-20">
+      <Section title="Workstation">
+        <ul role="list" class="space-y-16">
+          <Card as="li">
+            <CardTitle as="h3">Windows 11 PC, Intel Core i7, 32GB RAM</CardTitle>
+            <CardDescription>
+              My main development machine running Windows 11. Powerful enough to handle multiple IDEs, Docker containers, and browser tabs without breaking a sweat.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Dual 27" 4K Monitors</CardTitle>
+            <CardDescription>
+              Having two high-resolution displays makes a huge difference when working with code, documentation, and multiple applications side by side.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Mechanical Keyboard (Keychron K8)</CardTitle>
+            <CardDescription>
+              A wireless mechanical keyboard with brown switches. The tactile feedback makes typing feel satisfying and helps me code faster.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Logitech MX Master 3 Mouse</CardTitle>
+            <CardDescription>
+              The best mouse I've ever used. The ergonomic design and customizable buttons make it perfect for long coding sessions.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Ergonomic Office Chair</CardTitle>
+            <CardDescription>
+              A good chair is essential when you spend hours coding. Investing in ergonomics pays off in the long run.
+            </CardDescription>
+          </Card>
+        </ul>
+      </Section>
+
+      <Section title="Development tools">
+        <ul role="list" class="space-y-16">
+          <Card as="li">
+            <CardTitle as="h3">Visual Studio 2022</CardTitle>
+            <CardDescription>
+              My primary IDE for .NET development. The IntelliSense, debugging tools, and integrated Git support make it indispensable.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Visual Studio Code</CardTitle>
+            <CardDescription>
+              For everything else - frontend work, markdown editing, quick file edits, and when I need a lightweight editor.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Windows Terminal</CardTitle>
+            <CardDescription>
+              The modern terminal for Windows with tabs, panes, and great customization. I use PowerShell for most tasks.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Azure Data Studio</CardTitle>
+            <CardDescription>
+              Great tool for working with SQL Server databases. Much better than SQL Server Management Studio for most tasks.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Docker Desktop</CardTitle>
+            <CardDescription>
+              Essential for containerizing applications and running local development environments. Makes deployment consistent.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Postman</CardTitle>
+            <CardDescription>
+              For testing APIs and debugging HTTP requests. The collections feature helps me organize and share API tests.
+            </CardDescription>
+          </Card>
+        </ul>
+      </Section>
+
+      <Section title="Design">
+        <ul role="list" class="space-y-16">
+          <Card as="li">
+            <CardTitle as="h3">Figma</CardTitle>
+            <CardDescription>
+              When I need to create mockups or design system components, Figma is my go-to tool. Great for collaboration too.
+            </CardDescription>
+          </Card>
+        </ul>
+      </Section>
+
+      <Section title="Productivity">
+        <ul role="list" class="space-y-16">
+          <Card as="li">
+            <CardTitle as="h3">Obsidian</CardTitle>
+            <CardDescription>
+              My note-taking app of choice. The markdown-based approach and linking system helps me connect ideas and build a knowledge base.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">Notion</CardTitle>
+            <CardDescription>
+              For project management, documentation, and team collaboration. The database features are powerful for organizing information.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">GitHub</CardTitle>
+            <CardDescription>
+              Version control, code reviews, and project management. GitHub Actions for CI/CD pipelines.
+            </CardDescription>
+          </Card>
+          <Card as="li">
+            <CardTitle as="h3">1Password</CardTitle>
+            <CardDescription>
+              Password manager that keeps all my credentials secure and synced across devices. Essential for managing multiple accounts.
+            </CardDescription>
+          </Card>
+        </ul>
+      </Section>
+    </div>
+  </SimpleLayout>
+</BaseLayout>
