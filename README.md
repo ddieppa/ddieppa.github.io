@@ -72,7 +72,7 @@ Create a new Markdown file in `src/content/blog/` with the following structure:
 ---
 title: "Your Post Title"
 description: "A brief description of your post"
-pubDate: 2025-12-03
+pubDate: 2022-01-15
 author: "Daniel Dieppa"
 tags: ["dotnet", "azure", "architecture"]
 draft: false  # Set to true to hide in production
