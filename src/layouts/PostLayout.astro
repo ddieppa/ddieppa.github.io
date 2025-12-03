@@ -133,8 +133,70 @@ const readingTime = calculateReadingTime(rawContent);
     padding: 1rem;
     margin: 1.5rem 0;
     overflow-x: auto;
+    border-radius: 0.75rem;
   }
   
+  .code-block {
+    border: 1px solid var(--border-color);
+    border-radius: 0.85rem;
+    background-color: var(--code-bg);
+    margin: 1.5rem 0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  .code-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    border-top-left-radius: 0.85rem;
+    border-top-right-radius: 0.85rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+  }
+
+  .code-block__lang {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .code-block__copy {
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 150ms ease, background 150ms ease, border 150ms ease;
+  }
+
+  .code-block__copy:hover,
+  .code-block__copy:focus-visible {
+    color: var(--gradient-end);
+    border-color: var(--gradient-end);
+    outline: none;
+  }
+
+  .code-block__copy.is-copied {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+  }
+
+  .code-block pre {
+    margin: 0;
+    border-bottom-left-radius: 0.85rem;
+    border-bottom-right-radius: 0.85rem;
+    padding: 1rem 1.25rem;
+    background: transparent;
+  }
+
   .prose blockquote {
     border-left: 4px solid var(--gradient-start);
     padding-left: 1rem;
@@ -158,4 +220,86 @@ const readingTime = calculateReadingTime(rawContent);
     color: var(--gradient-end);
   }
 </style>
+
+<script is:inline>
+  const formatLanguage = (lang) => {
+    if (!lang) return 'Code';
+    return lang
+      .replace(/^language-/, '')
+      .replace(/^lang-/, '')
+      .replace(/^[^a-z0-9]+/i, '')
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const enhanceCodeBlocks = () => {
+    const proseBlocks = document.querySelectorAll('.prose pre');
+
+    proseBlocks.forEach((pre) => {
+      if (pre.closest('.code-block')) {
+        return;
+      }
+
+      const codeEl = pre.querySelector('code');
+      if (!codeEl) {
+        return;
+      }
+
+      const langFromClass = Array.from(codeEl.classList).find((cls) =>
+        cls.startsWith('language-') || cls.startsWith('lang-')
+      );
+
+      const language =
+        pre.getAttribute('data-language') ||
+        codeEl.getAttribute('data-language') ||
+        (langFromClass ? langFromClass : '') ||
+        'code';
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+
+      const header = document.createElement('div');
+      header.className = 'code-block__header';
+
+      const label = document.createElement('span');
+      label.className = 'code-block__lang';
+      label.textContent = formatLanguage(language);
+      label.setAttribute('aria-label', `Code language: ${label.textContent}`);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-block__copy';
+      button.textContent = 'Copy';
+      button.setAttribute('aria-label', `Copy ${label.textContent} code to clipboard`);
+
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(codeEl.innerText.trim());
+          button.textContent = 'Copied';
+          button.classList.add('is-copied');
+          setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('is-copied');
+          }, 1600);
+        } catch (error) {
+          button.textContent = 'Press Ctrl+C';
+          setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 2000);
+        }
+      });
+
+      header.append(label, button);
+      wrapper.append(header);
+      pre.replaceWith(wrapper);
+      wrapper.append(pre);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enhanceCodeBlocks);
+  } else {
+    enhanceCodeBlocks();
+  }
+</script>
 
