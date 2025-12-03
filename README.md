@@ -64,20 +64,44 @@ npm run preview
 
 ## Writing Blog Posts
 
-Create a new Markdown file in `src/content/blog/`:
+### Creating New Posts
+
+Create a new Markdown file in `src/content/blog/` with the following structure:
 
 ```markdown
 ---
 title: "Your Post Title"
 description: "A brief description of your post"
-pubDate: 2025-12-01
+pubDate: 2022-01-15
 author: "Daniel Dieppa"
-tags: ["dotnet", "azure"]
+tags: ["dotnet", "azure", "architecture"]
 draft: false  # Set to true to hide in production
 ---
 
 Your content here...
 ```
+
+### File Naming Convention
+
+- Use kebab-case for filenames: `my-awesome-post.md`
+- Keep filenames descriptive and concise
+- Avoid special characters and spaces
+
+### Writing Process
+
+1. **Create Draft**: Start with `draft: true` to hide from production
+2. **Write Content**: Use Markdown syntax with proper heading structure
+3. **Add Code Blocks**: Include language identifiers for syntax highlighting
+4. **Review**: Test locally before publishing
+5. **Publish**: Set `draft: false` and deploy
+
+### Content Guidelines
+
+- Use proper heading hierarchy (`#`, `##`, `###`)
+- Include code blocks with language identifiers
+- Add relevant tags for categorization
+- Write compelling descriptions for SEO
+- Keep paragraphs concise and readable
 
 ### Frontmatter Options
 
@@ -91,6 +115,85 @@ Your content here...
 | draft | boolean | No | false | Hide in production |
 | updatedDate | date | No | - | Last update date |
 | image | object | No | - | Featured image |
+
+### Publishing Process
+
+#### Local Development
+
+1. **Start Development Server**:
+   ```bash
+   npm run dev
+   ```
+   - Visit `http://localhost:4321`
+   - Draft posts are visible in development
+   - Test formatting, links, and images
+
+2. **Review Your Post**:
+   - Check heading hierarchy
+   - Verify code syntax highlighting
+   - Test all links and images
+   - Review mobile responsiveness
+
+#### Publishing to Production
+
+1. **Finalize Content**:
+   - Set `draft: false` in frontmatter
+   - Update `pubDate` to today's date
+   - Add relevant tags
+
+2. **Build and Deploy**:
+   ```bash
+   # Build the site
+   npm run build
+   
+   # Preview before deploy (optional)
+   npm run preview
+   ```
+
+3. **Deployment**:
+   - The blog is configured for `https://danieldieppa.dev`
+   - Deploy using your preferred hosting platform
+   - Common options: Vercel, Netlify, GitHub Pages
+
+#### Post-Publishing
+
+- **SEO**: Verify meta tags and Open Graph data
+- **Social**: Share on social media platforms
+- **Analytics**: Monitor traffic and engagement
+- **Updates**: Use `updatedDate` when modifying posts
+
+### Code Examples
+
+The blog supports syntax highlighting for multiple languages:
+
+```javascript
+// JavaScript example
+function greet(name) {
+    console.log(`Hello, ${name}!`);
+}
+```
+
+```csharp
+// C# example
+public class Example {
+    public string Name { get; set; }
+}
+```
+
+```powershell
+# PowerShell example
+Write-Host "Hello, World!"
+```
+
+### Supported Languages
+
+- JavaScript/TypeScript
+- C#/.NET
+- PowerShell
+- HTML/CSS
+- JSON/YAML
+- Bash/Shell
+- And many more...
 
 ## Pages
 

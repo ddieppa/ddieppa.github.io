@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import TableOfContents from '@/components/TableOfContents.astro';
 
 const experiences = [
   {
@@ -58,12 +59,20 @@ const softSkills = [
   'Adaptability to new technologies',
   'Mentorship and knowledge sharing'
 ];
+
+const resumeHeadings = [
+  { depth: 2, slug: 'work-experience', text: 'Work Experience' },
+  { depth: 2, slug: 'technical-skills', text: 'Technical Skills' },
+  { depth: 2, slug: 'soft-skills', text: 'Soft Skills' },
+  { depth: 2, slug: 'education', text: 'Education' },
+  { depth: 2, slug: 'languages', text: 'Languages' }
+];
 ---
 
 <BaseLayout title="Resume">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Header -->
-    <header class="mb-12 text-center">
+    <header class="mb-10">
       <h1 class="text-4xl font-bold mb-2">Daniel Dieppa</h1>
       <p class="text-xl mb-4" style="color: var(--gradient-start);">Senior Software Developer</p>
       <p class="max-w-2xl mx-auto" style="color: var(--text-secondary);">
@@ -73,8 +82,8 @@ const softSkills = [
       <div class="mt-6 flex justify-center gap-3">
         <a 
           href="/contact" 
-          class="px-6 py-2.5 rounded-lg font-medium text-white transition-transform hover:scale-105"
-          style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));"
+          class="px-6 py-2.5 rounded-lg font-medium transition-all hover:scale-105 shadow-lg"
+          style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); color: white; box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3);"
         >
           Contact Me
         </a>
@@ -89,8 +98,12 @@ const softSkills = [
       </div>
     </header>
     
-    <!-- Experience -->
-    <section class="mb-12">
+    <!-- Content Grid -->
+    <div class="lg:grid lg:grid-cols-[1fr_200px] lg:gap-10">
+      <!-- Main Content -->
+      <div class="space-y-12">
+        <!-- Experience -->
+        <section id="work-experience" class="scroll-mt-24">
       <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
         Work Experience
       </h2>
@@ -122,8 +135,8 @@ const softSkills = [
       </div>
     </section>
     
-    <!-- Skills -->
-    <section class="mb-12">
+        <!-- Skills -->
+        <section id="technical-skills" class="scroll-mt-24">
       <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
         Technical Skills
       </h2>
@@ -143,8 +156,8 @@ const softSkills = [
       </div>
     </section>
     
-    <!-- Soft Skills -->
-    <section class="mb-12">
+        <!-- Soft Skills -->
+        <section id="soft-skills" class="scroll-mt-24">
       <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
         Soft Skills
       </h2>
@@ -160,8 +173,8 @@ const softSkills = [
       </div>
     </section>
     
-    <!-- Education -->
-    <section class="mb-12">
+        <!-- Education -->
+        <section id="education" class="scroll-mt-24">
       <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
         Education
       </h2>
@@ -171,8 +184,8 @@ const softSkills = [
       </div>
     </section>
     
-    <!-- Languages -->
-    <section>
+        <!-- Languages -->
+        <section id="languages" class="scroll-mt-24">
       <h2 class="text-2xl font-bold mb-6 pb-2 border-b" style="border-color: var(--border-color);">
         Languages
       </h2>
@@ -186,7 +199,16 @@ const softSkills = [
           <p class="text-sm" style="color: var(--text-tertiary);">Fluent</p>
         </div>
       </div>
-    </section>
-  </div>
+        </section>
+      </div>
+      
+      <!-- Sidebar with TOC -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <TableOfContents headings={resumeHeadings} />
+        </div>
+      </aside>
+    </div>
+  </article>
 </BaseLayout>
 
