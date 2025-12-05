@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const sections = [
+  {
+    title: 'Hardware',
+    items: [
+      { name: 'Dell XPS', description: 'Portable daily driver with 32GB RAM' },
+      { name: 'Sony headphones', description: 'Reliable for focus and calls' },
+    ],
+  },
+  {
+    title: 'Software',
+    items: [
+      { name: 'Cursor', description: 'Primary editor with AI workflow' },
+      { name: 'JetBrains Rider', description: '.NET and backend development' },
+      { name: 'Visual Studio', description: 'Windows-first tooling when needed' },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Uses">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10 text-center">
+      <h1 class="text-4xl font-bold mb-3">Uses</h1>
+      <p class="text-lg" style="color: var(--text-secondary);">
+        Gear and tools I rely on each day for building, writing, and collaborating.
+      </p>
+    </header>
+
+    <div class="space-y-8">
+      {sections.map(section => (
+        <section class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--gradient-start)] to-[var(--gradient-end)] flex items-center justify-center text-white font-semibold">
+              {section.title.slice(0, 1)}
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold">{section.title}</h2>
+              <p class="text-sm" style="color: var(--text-secondary);">
+                Current favorites that stay in the rotation.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            {section.items.map(item => (
+              <div class="p-5 rounded-xl border h-full flex flex-col gap-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <h3 class="text-lg font-semibold">{item.name}</h3>
+                <p class="text-sm" style="color: var(--text-secondary);">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
