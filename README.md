@@ -203,7 +203,7 @@ Write-Host "Hello, World!"
 - `/tags/[tag]` - Posts by tag
 - `/about` - About page
 - `/resume` - Resume/CV
-- `/contact` - Contact form
+- `/uses` - Gear and software I use
 
 ## Customization
 
